@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_14_094611) do
+ActiveRecord::Schema.define(version: 2022_09_14_151508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,37 @@ ActiveRecord::Schema.define(version: 2022_09_14_094611) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "csv_transaction_details", force: :cascade do |t|
+    t.string "store_name", null: false
+    t.string "city"
+    t.integer "post"
+    t.string "acquirer"
+    t.integer "tid"
+    t.integer "mid"
+    t.integer "batch_no"
+    t.integer "card_no"
+    t.string "name"
+    t.string "card_issuer"
+    t.string "card_type"
+    t.string "card_network"
+    t.string "card_colour"
+    t.integer "txn_id"
+    t.integer "invoice"
+    t.integer "approval_code"
+    t.string "type"
+    t.integer "amount"
+    t.integer "tip_amount"
+    t.string "currency"
+    t.datetime "date"
+    t.string "status"
+    t.datetime "settlement_date"
+    t.string "cashier"
+    t.integer "bill_invoice"
+    t.integer "rubyonrails"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

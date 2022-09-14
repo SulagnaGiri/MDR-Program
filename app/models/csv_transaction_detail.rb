@@ -1,0 +1,2 @@
+class CsvTransactionDetail < ApplicationRecord
+end

@@ -1,0 +1,24 @@
+<!-- <%=@page_title="All stores"%> -->
+<div class="Store index">
+    <h2><%=@page_title="All stores"%></h2>
+    <%=link_to("Create new store",new_store_path)%>
+    <table class="listing" summary="Store list">
+        <tr class="header">
+            <th>Store Name</th>
+            <th>TID</th>
+            <th>Actions</th>
+        </tr>
+        <% @stores.each do |store| %>
+        <tr>
+            <td>store.store_name</td>
+            <td>store.tid</td>
+            <td class="action">
+                <%= link_to("Show",store_path(store), :class => 'action show')%>
+                <%=link_to("Edit",edit_store_path(store), :class => 'action edit')%>
+                <%=link_to("Delete",delete_store_path(store),:class => 'action delete')%>
+            </td>
+        </tr>
+
+    </table>
+    <%end%>
+</div>

@@ -1,2 +1,8 @@
-<h1>Store#new</h1>
-<p>Find me in app/views/store/new.html.erb</p>
+<%=link_to("Back to store list",stores_path)%>
+<div class="new">
+  <h2>New Store</h2>
+  <%=form_for(@store,:url=>stores_path,:method => 'post') do |f|%>
+  <%=render(:partial =>'form',:locals=>{:f=>f})%>
+  <div class="form-buttons"><%= f.submit("Create Store")%></div>
+  <% end%>
+</div>

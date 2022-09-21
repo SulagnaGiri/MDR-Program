@@ -10,15 +10,14 @@
         </tr>
         <% @stores.each do |store| %>
         <tr>
-            <td>store.store_name</td>
-            <td>store.tid</td>
+            <td><%=store.store_name%></td>
+            <td><%=store.tid%></td>
             <td class="action">
-                <%= link_to("Show",store_path(store), :class => 'action show')%>
+                <%=link_to("Show",store_path(store), :class => 'action show')%>
                 <%=link_to("Edit",edit_store_path(store), :class => 'action edit')%>
-                <%=link_to("Delete",delete_store_path(store),:class => 'action delete')%>
+                <%=link_to("Delete",delete_store_path(store),:class=>'action delete')%>
             </td>
         </tr>
-
+        <%end%>
     </table>
-    <%end%>
 </div>

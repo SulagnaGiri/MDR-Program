@@ -5,12 +5,16 @@
     <table class="listing" summary="Store list">
         <tr class="header">
             <th>Store Name</th>
+            <th>City</th>
+            <th>POS</th>
             <th>TID</th>
             <th>Actions</th>
         </tr>
         <% @stores.each do |store| %>
         <tr>
             <td><%=store.store_name%></td>
+            <td><%=store.city%></td>
+            <td><%=store.pos%></td>
             <td><%=store.tid%></td>
             <td class="action">
                 <%=link_to("Show",store_path(store), :class => 'action show')%>

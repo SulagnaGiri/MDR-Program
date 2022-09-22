@@ -1,2 +1,9 @@
-<h1>Store#edit</h1>
-<p>Find me in app/views/store/edit.html.erb</p>
+<%=link_to("Back to store list",stores_path)%>
+<div class="edit">
+  <h2>Edit Store</h2>
+  <%=form_for @store  do |f|%>
+  <%=render(:partial =>'form',:locals=>{:f=>f})%>
+  <div class="form-buttons"><%= f.submit("Update Store")%></div>
+  <% end%>
+
+</div>

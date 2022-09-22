@@ -22,9 +22,19 @@ class StoresController < ApplicationController
   end
 
   def edit
+    @store=Store.find(params[:id])
+
   end
 
-  def updated
+  def update
+    @store=Store.find(params[:id])
+    
+    if @store.update_attributes(store_params)
+      flash[:notice]="Store updated successfully"
+      redirect_to(stores_path)
+    else 
+      render('edit')
+    end
   end
 
   def delete
@@ -34,9 +44,12 @@ class StoresController < ApplicationController
   def destroy
     @store=Store.find(params[:id])
     @store.destroy
-    flash[:notice]="Store'#{@store.name}' deleted successfully"
+    flash[:notice]="Store'#{@store.store_name}' deleted successfully"
     redirect_to(stores_path)
   end
+
+  
+
   private
 
   def store_params

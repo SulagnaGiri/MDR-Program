@@ -1,2 +1,9 @@
-<h1>Store#delete</h1>
-<p>Find me in app/views/store/delete.html.erb</p>
+<%= link_to("<< Back to List",stores_path, :class=> 'back-link') %>
+<div class="stores delete">
+  <h2>Delete Store</h2>
+  <%= form_for(@store, :method=> 'delete') do |f| %>
+  <p>Are you sure you permanenetly delete the store?</p>
+  <p class="reference name"><%=@store.store_name%></p>
+  <div class="form buttons"><%=f.submit("Delete Store")%></div>
+  <% end%>
+</div>

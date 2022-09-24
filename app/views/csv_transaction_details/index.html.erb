@@ -1,13 +1,39 @@
+<%=flash[:notice]%>
 
 
-<h3> Import User Data </h3>
-
-
+<h3> Upload .cvs File </h3>
 <%=form_tag  import_csv_transaction_details_path, multipart: true do %>
-
 <%=file_field_tag :file%>
 <%=submit_tag "Import CSV"%>
+<%end%>
+
+
+
+<table>
+
+<thead>
+
+<th> Store Name</th>
+
+<th> Last Uploaded  Date</th>
+
+
+</thead>
+
+<tbody>
+
+<%@csvtransactiondetail.each do |csvtransactiondetail|%>
+
+<tr>
+
+<td><%=csvtransactiondetail.store_name %></td>
+<td><%=csvtransactiondetail.created_at %></td>
+
+
+</tr>
 
 <%end%>
 
-<div>
+</tbody>
+
+</table>

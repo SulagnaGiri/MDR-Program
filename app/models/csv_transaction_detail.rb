@@ -6,6 +6,7 @@ class CsvTransactionDetail < ApplicationRecord
     def self.import(file)
         csv = File.read(file.path)
         CSV.parse(csv, headers: true).each do |row|
+            p row
             new_csv_transaction_detail = CsvTransactionDetail.new
             new_csv_transaction_detail.store_name = row['Store Name']
             new_csv_transaction_detail.city = row['City'].to_s.delete("\u0000")

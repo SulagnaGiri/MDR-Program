@@ -1,0 +1,13 @@
+
+
+<h3> Import User Data </h3>
+
+
+<%=form_tag  import_csv_transaction_details_path, multipart: true do %>
+
+<%=file_field_tag :file%>
+<%=submit_tag "Import CSV"%>
+
+<%end%>
+
+<div>

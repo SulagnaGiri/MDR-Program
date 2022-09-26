@@ -11,11 +11,9 @@ Rails.application.routes.draw do
     root 'devise/sessions#new'
   end
   resources :stores do
-   
-
     member do
-     get :delete
-     end  
+      get :delete
+    end  
   end
   # get 'csv_transaction_details', to: 'csv_transaction_details#new'
   # post 'csv_transaction_details', to: 'csv_transaction_details#create'

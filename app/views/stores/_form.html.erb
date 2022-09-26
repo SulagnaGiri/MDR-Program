@@ -1,19 +1,19 @@
 <table summary="Store form filed">
   <tr>
     <th>Store Name</th>
-    <td><%= f.text_field(:store_name)%></td>
+    <td><%= f.text_field :store_name, required: true%></td>
   </tr>
   <tr>
     <th>City</th>
-    <td><%= f.text_field(:city)%></td>
+    <td><%= f.text_field :city,required: true%></td>
   </tr>
   <tr>
     <th>POS</th>
-    <td><%= f.text_field(:pos)%></td>
+    <td><%= f.text_field :pos, required: true%></td>
   </tr>
   <tr>
     <th>TID</th>
-    <td><%= f.text_field(:tid)%></td>
+    <td><%= f.text_field:tid , required: true%></td>
   </tr>
   <!-- <tr>
       <th>Created at</th>

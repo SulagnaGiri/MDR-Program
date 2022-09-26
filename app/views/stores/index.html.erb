@@ -1,22 +1,24 @@
 <!-- <%=@page_title="All stores"%> -->
-<div class="Store index">
-    <h2><%=@page_title="All stores"%></h2>
+<div class="Store index"><br>
+   <center><h2><%=@page_title="All stores"%></h2></center> <br>
     <%=link_to("Create new store",new_store_path)%>
-    <table class="listing" summary="Store list">
+    <table class="table table-hover table-striped " summary="Store list">
         <tr class="header">
-            <th>Store Name</th>
-            <th>City</th>
-            <th>POS</th>
-            <th>TID</th>
-            <th>Actions</th>
+            <th scope="col">Store ID</th>
+            <th scope="col">Store Name</th>
+            <th scope="col">City</th>
+            <th scope="col">POS</th>
+            <th scope="col">TID</th>
+            <th scope="col">Actions</th>
         </tr>
         <% @stores.each do |store| %>
         <tr>
-            <td><%=store.store_name%></td>
-            <td><%=store.city%></td>
-            <td><%=store.pos%></td>
-            <td><%=store.tid%></td>
-            <td class="action">
+            <td scope="row"><%=store.id%></td>
+            <td scope="row"><%=store.store_name%></td>
+            <td scope="row"><%=store.city%></td>
+            <td scope="row"><%=store.pos%></td>
+            <td scope="row"><%=store.tid%></td>
+            <td class="action" scope="row">
                 <%=link_to("Show",store_path(store), :class => 'action show')%>
                 <%=link_to("Edit",edit_store_path(store), :class => 'action edit')%>
                 <%=link_to("Delete",delete_store_path(store),:class=>'action delete')%>

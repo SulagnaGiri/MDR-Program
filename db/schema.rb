@@ -53,6 +53,11 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.datetime "settlement_date"
     t.string "cashier"
     t.integer "bill_invoice"
+    t.integer "rrn"
+    t.integer "emi_txn"
+    t.integer "emi_month"
+    t.string "contactless"
+    t.string "cloud_ref_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "contactless_mode"
@@ -61,7 +66,6 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
   end
 
   create_table "daily_reports", force: :cascade do |t|
-    t.string "store_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -83,10 +87,10 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "store_name"
-    t.string "city"
+    t.string "store_name", limit: 100, null: false
+    t.string "city", limit: 40
     t.integer "pos"
-    t.integer "tid"
+    t.integer "tid", null: false
     t.string "card_network"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,5 +1,5 @@
 class CreateStores < ActiveRecord::Migration[5.2]
-  def change
+  def up
     create_table :stores do |t|
       t.string  :store_name ,:limit=>100 ,:null=>false
       t.string  :city,:limit=>40
@@ -10,4 +10,6 @@ class CreateStores < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
+  def down
+    drop_table :stores
 end

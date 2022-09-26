@@ -1,6 +1,24 @@
+<%=link_to("Back to list",stores_path)%>
+<center><h2>Store Details</h2></center>
+<table>
+    <tr>
+        <th>Store Name :</th>
+        <td><%=@store.store_name%></td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td><%=@store.city%></td>
+    </tr>
+    <tr>
+        <th>POS</th>
+        <td><%=@store.pos%></td>
+    </tr>
+    <tr>
+        <th>TID</th>
+        <td><%=@store.tid%></td>
+    </tr>
+</table>
+<%=link_to("Upload CSV file", csv_transaction_details_path)%>
 
-<%= form_with url: import_store_csv_transaction_details_path, method: :post do |form| %>
-    <%= form.file_field :file, accept: ".csv" %>
-    <%= form.button "Import" %>
-  <% end %>
+
   

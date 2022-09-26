@@ -1,4 +1,28 @@
 body
 {
- background-color: #FFE59D;
+ background-color: #F9F5EB;
+}
+.signout a:link { 
+    text-decoration:none; 
+   
+}
+.signout
+{
+    margin-top: -70%;
+    margin-left: -5%;
+}
+.home
+{
+    margin-left: -100%;
+    margin-top: -13px;
+    padding: .2%
+}
+.home a:link { 
+    text-decoration:none; 
+}
+.search
+{
+    margin-left: 50px;
+    padding:.2%;
+    margin-top: -10%;
 }

@@ -1,10 +1,14 @@
 class StoresController < ApplicationController
-  layout "user"
+  layout "store"
+  
+
   def index
     @stores=Store.all
   end
 
   def show
+    @store=Store.find(params[:id])
+
   end
 
   def new

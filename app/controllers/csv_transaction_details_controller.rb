@@ -1,4 +1,5 @@
 class CsvTransactionDetailsController < ApplicationController
+    layout "store"
 
     def index
         @csvtransactiondetail = CsvTransactionDetail.all

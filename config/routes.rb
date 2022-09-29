@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   # get 'csv_transaction_details', to: 'csv_transaction_details#new'
   # post 'csv_transaction_details', to: 'csv_transaction_details#create'
-   resources  :csv_transaction_details do
+   resources  :store_transactions do
 
     collection {post :import}
     

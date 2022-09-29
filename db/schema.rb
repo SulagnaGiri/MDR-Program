@@ -28,6 +28,23 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
   end
 
   create_table "csv_transaction_details", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "daily_reports", force: :cascade do |t|
+    t.string "store_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "monthly_reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "store_transactions", force: :cascade do |t|
+    t.integer "store_id"
     t.string "store_name", null: false
     t.string "city"
     t.integer "pos"
@@ -35,13 +52,13 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.integer "tid"
     t.integer "mid"
     t.integer "batch_no"
-    t.bigint "card_no"
+    t.integer "card_no"
     t.string "name"
     t.string "card_issuer"
     t.string "card_type"
     t.string "card_network"
     t.string "card_colour"
-    t.bigint "txn_id"
+    t.integer "txn_id"
     t.integer "invoice"
     t.integer "approval_code"
     t.string "type"
@@ -60,37 +77,13 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.string "cloud_ref_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "contactless_mode"
-    t.integer "store_id"
-    t.string "Contactless"
-  end
-
-  create_table "daily_reports", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "monthly_reports", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "store_transactions", force: :cascade do |t|
-    t.integer "store_id"
-    t.string "status"
-    t.integer "tid"
-    t.string "acquirer"
-    t.string "card_type"
-    t.integer "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "store_name", limit: 100, null: false
-    t.string "city", limit: 40
+    t.string "store_name"
+    t.string "city"
     t.integer "pos"
-    t.integer "tid", null: false
+    t.integer "tid"
     t.string "card_network"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -13,10 +13,38 @@
         <th>POS</th>
         <td><%=@store.pos%></td>
     </tr>
+</table>
+<table class="table table-hover table-striped " summary="Store list">
+<tr class="header">
+    <th scope="col">Acquirer</th>
+    <th scope="col">mid</th>
+    <th scope="col">batch no</th>
+    <th scope="col">card no</th>
+    <th scope="col">Name</th>
+    <th scope="col">card_issuer</th>
+    <th scope="col">card_type</th>
+    <th scope="col">card_colour</th>
+    <th scope="col">txn_id</th>
+    <th scope="col">invoice</th>
+</tr>
+
+<% @store_transactions.each do |store_transaction| %>
     <tr>
-        <th>TID</th>
-        <td><%=@store.tid%></td>
-    </tr>
+        <td scope="row"><%=store_transaction.acquirer%></td>
+        <td scope="row"><%=store_transaction.mid%></td>
+        <td scope="row"><%=store_transaction.batch_no%></td>
+        <td scope="row"><%=store_transaction.card_no%></td>
+        <td scope="row"><%=store_transaction.name%></td>
+        <td scope="row"><%=store_transaction.card_issuer%></td>
+        <td scope="row"><%=store_transaction.card_type%></td>
+        <td scope="row"><%=store_transaction.card_colour%></td>
+        <td scope="row"><%=store_transaction.txn_id%></td>
+        <td scope="row"><%=store_transaction.invoice%></td>
+        </td>
+     </tr>
+   
+<%end%>
+   
 </table>
 
 

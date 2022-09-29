@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_23_114058) do
+ActiveRecord::Schema.define(version: 2022_09_29_173955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,13 +27,7 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "csv_transaction_details", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "daily_reports", force: :cascade do |t|
-    t.string "store_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,21 +38,15 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
   end
 
   create_table "store_transactions", force: :cascade do |t|
-    t.integer "store_id"
-    t.string "store_name", null: false
-    t.string "city"
-    t.integer "pos"
     t.string "acquirer"
-    t.integer "tid"
     t.integer "mid"
     t.integer "batch_no"
-    t.integer "card_no"
+    t.bigint "card_no"
     t.string "name"
     t.string "card_issuer"
     t.string "card_type"
-    t.string "card_network"
     t.string "card_colour"
-    t.integer "txn_id"
+    t.bigint "txn_id"
     t.integer "invoice"
     t.integer "approval_code"
     t.string "type"
@@ -77,13 +65,15 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.string "cloud_ref_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "store_id"
+    t.index ["store_id"], name: "index_store_transactions_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "store_name"
-    t.string "city"
+    t.string "store_name", limit: 100, null: false
+    t.string "city", limit: 40
     t.integer "pos"
-    t.integer "tid"
+    t.integer "tid", null: false
     t.string "card_network"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -94,4 +84,5 @@ ActiveRecord::Schema.define(version: 2022_09_23_114058) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "store_transactions", "stores"
 end

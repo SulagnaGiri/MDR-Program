@@ -13,7 +13,7 @@ class StoreTransaction < ApplicationRecord
         csv = File.read(file.path)
         CSV.parse(csv, headers: true).each do |row|
 
-              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'], pos: row['POS'], tid: row['TID'] )
+              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'])
 
             new_store_transaction = @store.store_transactions.new
             # new_store_transaction.store_name = row['Store Name']

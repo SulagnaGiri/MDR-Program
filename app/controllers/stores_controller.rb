@@ -3,7 +3,7 @@ class StoresController < ApplicationController
   
 
   def index
-    @stores=Store.sorted
+    @stores=Store.all
   end
 
   def show
@@ -65,6 +65,6 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:store_name,:city,:tid, :pos)
+    params.require(:store).permit(:store_name,:city)
   end
 end

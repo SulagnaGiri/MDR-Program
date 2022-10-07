@@ -3,13 +3,15 @@ class StoresController < ApplicationController
   
 
   def index
-    @stores=Store.all
+    @stores=Store.sorted
   end
 
   def show
     @store=Store.find(params[:id])
     
     @store_transactions = @store.store_transactions
+    # @daily_reports =  @store.eager_load(:store_transactions).order(id: :desc).select(" store_transaction.name,store_transaction.card_issuer ")
+   
     
 
   end
@@ -54,7 +56,10 @@ class StoresController < ApplicationController
     flash[:notice]="Store'#{@store.store_name}' deleted successfully"
     redirect_to(stores_path)
   end
-
+  def daily_report
+    @store=Store.find(params[:id])
+    @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+  end
   
 
   private

@@ -26,6 +26,7 @@
     <th scope="col">card_colour</th>
     <th scope="col">txn_id</th>
     <th scope="col">invoice</th>
+    <th scope="col">Date</th>
 </tr>
 
 <% @store_transactions.each do |store_transaction| %>
@@ -40,12 +41,15 @@
         <td scope="row"><%=store_transaction.card_colour%></td>
         <td scope="row"><%=store_transaction.txn_id%></td>
         <td scope="row"><%=store_transaction.invoice%></td>
+        <td scope="row"><%=store_transaction.date%></td>
         </td>
      </tr>
    
 <%end%>
+
    
 </table>
+<%=link_to("Daily report",daily_report_store_path)%>
 
 
 

@@ -5,14 +5,14 @@ Rails.application.routes.draw do
   # get 'stores/show'
   # get 'stores/new'
   # get 'stores/edit'
-  # get 'stores/delete'
+  # get 'stores/daily_report'
   devise_for :admin_users
   devise_scope :admin_user do
     root 'devise/sessions#new'
   end
   resources :stores do
     member do
-      get :delete
+      get :delete, :daily_report
     end  
   end
   # get 'csv_transaction_details', to: 'csv_transaction_details#new'

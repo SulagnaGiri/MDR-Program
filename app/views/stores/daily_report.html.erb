@@ -1,0 +1,31 @@
+<%=link_to("Back to list",store_path(@store))%>
+<center><h2>Daily Report</h2></center>
+<table class="table table-hover table-striped" >
+<tr class="header">
+    <th scope="col">Store ID</th>
+    <th scope="col">Store Name</th>
+    <th scope="col">TID</th>
+    <th scope="col">Txn ID</th>
+    <th scope="col">Name</th>
+    <th scope="col">Card Type</th>
+    <th scope="col">Card Color</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Date</th>
+    
+</tr>
+<% @daily_reports.each do |daily_report| %>
+    <tr>
+        <td scope="row"><%=daily_report.store_id %></td>
+        <td scope="row"><%=daily_report.store_name %></td>
+        <td scope="row"><%=daily_report.tid %></td>
+        <td scope="row"><%=daily_report.txn_id %></td>
+        <td scope="row"><%=daily_report.name%></td>
+        <td scope="row"><%=daily_report.card_type %></td>
+        <td scope="row"><%=daily_report.card_colour %></td>
+        <td scope="row"><%=daily_report.amount %></td>
+        <td scope="row"><%=daily_report.date %></td>
+
+        
+    </tr>
+<%end%>
+</table>

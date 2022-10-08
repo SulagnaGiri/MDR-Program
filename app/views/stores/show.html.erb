@@ -1,4 +1,6 @@
 <%=link_to("Back to list",stores_path)%>
+<%=link_to("Daily report",daily_report_store_path)%>
+<%=link_to(" Download Daily report",daily_report_store_path(format: :csv))%>
 <center><h2>Store Details</h2></center>
 <table>
     <tr>
@@ -15,6 +17,8 @@
 <tr class="header">
     <th scope="col">Acquirer</th>
     <th scope="col">mid</th>
+    <th scope="col">tid</th>
+    <th scope="col">pos</th>
     <th scope="col">batch no</th>
     <th scope="col">card no</th>
     <th scope="col">Name</th>
@@ -30,6 +34,8 @@
     <tr>
         <td scope="row"><%=store_transaction.acquirer%></td>
         <td scope="row"><%=store_transaction.mid%></td>
+        <td scope="row"><%=store_transaction.tid%></td>
+        <td scope="row"><%=store_transaction.pos%></td>
         <td scope="row"><%=store_transaction.batch_no%></td>
         <td scope="row"><%=store_transaction.card_no%></td>
         <td scope="row"><%=store_transaction.name%></td>
@@ -46,7 +52,8 @@
 
    
 </table>
-<%=link_to("Daily report",daily_report_store_path)%>
+
+
 
 
 

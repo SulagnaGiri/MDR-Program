@@ -1,8 +1,8 @@
 class StoreTransaction < ApplicationRecord
     belongs_to :store
-    has_many :daily_reports
-    has_many :weekly_reports
-    has_many :monthly_reports
+    # has_many :daily_reports
+    # has_many :weekly_reports
+    # has_many :monthly_reports
     self.inheritance_column = :_type_disabled
     
 
@@ -13,14 +13,14 @@ class StoreTransaction < ApplicationRecord
         csv = File.read(file.path)
         CSV.parse(csv, headers: true).each do |row|
 
-              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'], pos: row['POS'], tid: row['TID'] )
+              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'] )
 
             new_store_transaction = @store.store_transactions.new
             # new_store_transaction.store_name = row['Store Name']
             # new_store_transaction.city = row['City'].to_s.delete("\u0000")
-            # new_store_transaction.pos = row['POS'].to_s.delete("\u0000")
+            new_store_transaction.pos = row['POS'].to_s.delete("\u0000")
             new_store_transaction.acquirer = row['Acquirer'].to_s.delete("\u0000")
-            # new_store_transaction.tid = row['TID'].to_s.delete("\u0000")
+            new_store_transaction.tid = row['TID'].to_s.delete("\u0000")
             new_store_transaction.mid = row['MID'].to_s.delete("\u0000")
             new_store_transaction.batch_no = row['Batch No'].to_s.delete("\u0000")
             new_store_transaction.card_no = row['Card No'].to_s.delete("\u0000")

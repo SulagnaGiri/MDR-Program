@@ -38,15 +38,19 @@ ActiveRecord::Schema.define(version: 2022_09_29_173955) do
   end
 
   create_table "store_transactions", force: :cascade do |t|
+    t.integer "store_id"
+    t.integer "pos"
     t.string "acquirer"
+    t.integer "tid"
     t.integer "mid"
     t.integer "batch_no"
-    t.bigint "card_no"
+    t.float "card_no"
     t.string "name"
     t.string "card_issuer"
     t.string "card_type"
+    t.string "card_network"
     t.string "card_colour"
-    t.bigint "txn_id"
+    t.float "txn_id"
     t.integer "invoice"
     t.integer "approval_code"
     t.string "type"
@@ -65,16 +69,11 @@ ActiveRecord::Schema.define(version: 2022_09_29_173955) do
     t.string "cloud_ref_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "store_id"
-    t.index ["store_id"], name: "index_store_transactions_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
     t.string "store_name", limit: 100, null: false
     t.string "city", limit: 40
-    t.integer "pos"
-    t.integer "tid", null: false
-    t.string "card_network"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -84,5 +83,4 @@ ActiveRecord::Schema.define(version: 2022_09_29_173955) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "store_transactions", "stores"
 end

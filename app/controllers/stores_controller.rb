@@ -59,12 +59,45 @@ class StoresController < ApplicationController
   def daily_report
     @store=Store.find(params[:id])
     @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+    respond_to do |format|
+      format.html
+      format.csv { send_data  to_csv(@daily_reports)}  
+    end
   end
+  
   
 
   private
 
   def store_params
     params.require(:store).permit(:store_name,:city,:tid, :pos)
+  end
+
+
+
+  def to_csv (daily_reports)
+    attributes = %w{  store_name  tid  store_id  txn_id  name card_type  card_colour  amount  date }
+
+
+    CSV.generate(headers: true) do |csv|
+        csv <<attributes
+
+        daily_reports.all.each do |daily_report|
+
+            csv<<[
+            daily_report.store_id,
+            daily_report.store_name,
+            # store.city,
+            daily_report.tid,
+            daily_report.txn_id,
+            daily_report.name,
+            daily_report.card_type,
+            daily_report.card_colour,
+            daily_report. amount,
+            daily_report.date,
+
+          ]
+        end
+      end
   end
 end

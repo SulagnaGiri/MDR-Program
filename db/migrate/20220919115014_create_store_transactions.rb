@@ -2,8 +2,8 @@ class CreateStoreTransactions < ActiveRecord::Migration[5.2]
   def change
     create_table :store_transactions do |t|
       t.integer :store_id
-      t.string   :store_name, null: false
-      t.string   :city
+      # t.string   :store_name, null: false
+      # t.string   :city
       t.integer  :pos
       t.string   :acquirer
       t.integer  :tid

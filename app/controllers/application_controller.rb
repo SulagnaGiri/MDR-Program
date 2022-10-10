@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    # before_action :authenticate_admin_user!
+     before_action :authenticate_admin_user!
 
     # def after_sign_in_path_for(resource_or_scope)
        
@@ -12,7 +12,10 @@ class ApplicationController < ActionController::Base
     # end
     def after_sign_in_path_for(resource)
        stores_path # your path
-      end
+    end
+
+
+      
     
     
 end

@@ -3,13 +3,11 @@
    <center><h2><%=@page_title="All stores"%></h2></center> <br>
     <%=link_to("Create new store",new_store_path)%>
     <%=link_to("UPLOAD .csv FILE",store_transactions_path)%>
-    <table class="table table-hover table-striped " summary="Store list">
+    <table class="table table-hover table-striped " id="table_id"  summary="Store list">
         <tr class="header">
             <th scope="col">Store ID</th>
             <th scope="col">Store Name</th>
             <th scope="col">City</th>
-            <th scope="col">POS</th>
-            <th scope="col">TID</th>
             <th scope="col">Actions</th>
         </tr>
         <% @stores.each do |store| %>
@@ -17,8 +15,7 @@
             <td scope="row"><%=store.id%></td>
             <td scope="row"><%=store.store_name%></td>
             <td scope="row"><%=store.city%></td>
-            <td scope="row"><%=store.pos%></td>
-            <td scope="row"><%=store.tid%></td>
+           
             <td class="action" scope="row">
                 <%=link_to("Show",store_path(store), :class => 'action show')%>
                 <%=link_to("Edit",edit_store_path(store), :class => 'action edit')%>

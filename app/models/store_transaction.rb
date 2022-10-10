@@ -8,26 +8,27 @@ class StoreTransaction < ApplicationRecord
 
 
     require "csv"
+    
 
     def self.import(file)
         csv = File.read(file.path)
         CSV.parse(csv, headers: true).each do |row|
 
-              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'], pos: row['POS'], tid: row['TID'] )
+              @store = Store.find_or_create_by(store_name: row['Store Name'] ,city: row['City'])
 
             new_store_transaction = @store.store_transactions.new
             # new_store_transaction.store_name = row['Store Name']
             # new_store_transaction.city = row['City'].to_s.delete("\u0000")
-            # new_store_transaction.pos = row['POS'].to_s.delete("\u0000")
+            new_store_transaction.pos = row['POS'].to_s.delete("\u0000")
             new_store_transaction.acquirer = row['Acquirer'].to_s.delete("\u0000")
-            # new_store_transaction.tid = row['TID'].to_s.delete("\u0000")
+            new_store_transaction.tid = row['TID'].to_s.delete("\u0000")
             new_store_transaction.mid = row['MID'].to_s.delete("\u0000")
             new_store_transaction.batch_no = row['Batch No'].to_s.delete("\u0000")
             new_store_transaction.card_no = row['Card No'].to_s.delete("\u0000")
             new_store_transaction.name = row['Name'].to_s.delete("\u0000")
             new_store_transaction.card_issuer = row['Card Issuer'].to_s.delete("\u0000")
             new_store_transaction.card_type = row['Card Type'].to_s.delete("\u0000")
-            # new_store_transaction.card_network = row['Card Network'].to_s.delete("\u0000")
+            new_store_transaction.card_network = row['Card Network'].to_s.delete("\u0000")
             new_store_transaction.card_colour = row['Card Colour'].to_s.delete("\u0000")
             new_store_transaction.txn_id = row['TxnID'].to_s.delete("\u0000")
             new_store_transaction.invoice = row['Invoice'].to_s.delete("\u0000")

@@ -61,8 +61,21 @@ class StoresController < ApplicationController
     @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
     respond_to do |format|
       format.html
-      format.csv {send_data  to_csv(@daily_reports) }
+      format.csv {send_data  to_csv(@daily_reports)  , filename: "daily report-#{Date.today}.csv"}
     end
+  end
+  def monthly_report
+    @store=Store.find(params[:id])
+    @monthly_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+    @amount_sum  = @monthly_reports.sum(:amount)
+
+
+  end
+  def yearly_report
+    @store=Store.find(params[:id])
+    @yearly_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+    @amount_sum  =  @yearly_reports.sum(:amount)
+
   end
   
 

@@ -3,8 +3,11 @@
     <button class="dropbtn">Reports</button>
     <div class="dropdown-content">
         <%=link_to("Daily report",daily_report_store_path)%>
+        <input type="date" id="start" name="start">
         <%=link_to("Monthly report",monthly_report_store_path)%>
+        <input type="month" id="start" name="start">
         <%=link_to("Yearly report",yearly_report_store_path)%>
+        
     </div>
 </div>
 <center><h2><%=@page_title="Store Details"%></h2></center> <br>

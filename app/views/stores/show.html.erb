@@ -1,19 +1,13 @@
 <%=link_to("Back to list",stores_path)%>
-<<<<<<< HEAD
 <div class="dropdown">
     <button class="dropbtn">Reports</button>
     <div class="dropdown-content">
         <%=link_to("Daily report",daily_report_store_path)%>
-        <%=link_to("Monthly report",daily_report_store_path)%>
-        <%=link_to("Yearly report",daily_report_store_path)%>
+        <%=link_to("Monthly report",monthly_report_store_path)%>
+        <%=link_to("Yearly report",yearly_report_store_path)%>
     </div>
 </div>
-
-=======
-<%=link_to("Daily report",daily_report_store_path)%>
-<%=link_to(" Download Daily report",daily_report_store_path(format: :csv))%>
->>>>>>> 4638dce1211a2ee40fe2bb7eae190d767ebbc903
-<center><h2>Store Details</h2></center>
+<center><h2><%=@page_title="Store Details"%></h2></center> <br>
 <table>
     <tr>
         <th>Store Name :</th>
@@ -23,11 +17,6 @@
         <th>City</th>
         <td><%=@store.city%></td>
     </tr>
-<<<<<<< HEAD
-    
-=======
-   
->>>>>>> 4638dce1211a2ee40fe2bb7eae190d767ebbc903
 </table>
 <table class="table table-hover table-striped " summary="Store list">
 <tr class="header">
@@ -73,10 +62,6 @@
    
 </table>
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4638dce1211a2ee40fe2bb7eae190d767ebbc903
 
 
 

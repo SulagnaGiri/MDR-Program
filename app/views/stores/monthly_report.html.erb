@@ -1,0 +1,46 @@
+<%=link_to("Back to list",store_path(@store))%><%=link_to(" Download Monthly report",monthly_report_store_path(format: :csv))%>
+<center><h2>Monthly Report</h2></center>
+<table class="table table-hover table-striped" >
+<tr class="header">
+    <th scope="col">Trans_date</th>
+    <th scope="col">Store </th>
+    <th scope="col">TID#</th>
+    <th scope="col">Store Type</th>
+    <th scope="col">Counter</th>
+    <th scope="col">Status</th>
+    <th scope="col">Mode</th>
+    <th scope="col">Card Type</th>
+    <th scope="col">Brand Type</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Store MDR</th>
+    <th scope="col">Amount</th>
+    <th scope="col">Acquring Bank</th>
+    
+</tr>
+<% @monthly_reports.each do |monthly_report| %>
+<tr>
+    <td scope="row"><%=monthly_report.date %></td>
+    <td scope="row"><%=monthly_report.store_name %></td>
+    <td scope="row"><%=monthly_report.tid %></td>
+    <td scope="row">Others</td>
+    <td scope="row"></td>
+    <td scope="row"><%=monthly_report.status %></td>
+    <td scope="row">Card</td>
+    <td scope="row"><%=monthly_report.card_type %></td>
+    <td scope="row"><%=monthly_report.card_network %></td>
+    <td scope="row"><%=monthly_report.amount %></td>
+    <td scope="row"><%=monthly_report.store_mdr %></td>
+    <td scope="row"><%=monthly_report.new_amount %></td>
+    <td scope="row"><%=monthly_report.acquirer %></td>
+
+        
+</tr>
+
+<%end%>
+<tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><h5>Total</h5></td>
+    <td scope="row"><h5><%=@amount_sum%></h5></td>
+    <td></td><td><h5><%=@new_amount%></h5></td><td></td>
+</tr>
+<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+</table>

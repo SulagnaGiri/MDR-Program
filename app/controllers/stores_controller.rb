@@ -9,11 +9,7 @@ class StoresController < ApplicationController
   def show
     @store=Store.find(params[:id])
     
-    @store_transactions = @store.store_transactions
-    # @daily_reports =  @store.eager_load(:store_transactions).order(id: :desc).select(" store_transaction.name,store_transaction.card_issuer ")
-   
-    
-
+    @store_transactions = @store.store_transactions   
   end
 
   def new
@@ -58,8 +54,12 @@ class StoresController < ApplicationController
   end
   def daily_report
     @store=Store.find(params[:id])
+<<<<<<< HEAD
     @daily_reports=  @store.store_transactions.joins(:store).order(date: :desc).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
     @daily_sum =  @daily_reports.sum(:amount)
+=======
+    @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id",)
+>>>>>>> 6ae24ee3b1be60707ffd8ecb4f9a2e9c2790affd
     respond_to do |format|
       format.html
       format.csv {send_data  to_csv(@daily_reports)  , filename: "daily report-#{Date.today}.csv"}
@@ -67,15 +67,28 @@ class StoresController < ApplicationController
   end
   def monthly_report
     @store=Store.find(params[:id])
-    @monthly_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+    
+    @store_types="others"
+    @monthly_reports=  @store.store_transactions.joins(:store).select("date","store_name","tid","status","card_type","card_network","amount","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD') THEN 2.00 WHEN card_type='Debit' AND amount<2000 
+    AND (card_network='VISA'OR card_network='MASTERCARD')THEN 0.45 WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN 0.95 ELSE  0.00  END AS store_mdr","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END AS new_amount",
+    "acquirer")
     @amount_sum  = @monthly_reports.sum(:amount)
-
+    @new_amount  = @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END ")
+    respond_to do |format|
+      format.html
+      format.csv {send_data  to_csv(@monthly_reports,@store_type)  , filename: "monthly report-#{Date.today}.csv"}
+    end
 
   end
   def yearly_report
     @store=Store.find(params[:id])
     @yearly_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
     @amount_sum  =  @yearly_reports.sum(:amount)
+
 
   end
   
@@ -111,6 +124,34 @@ class StoresController < ApplicationController
           ]
         end
       end
+  end
+  def to_csv (monthly_reports  ,store_type)
+    # attributes = %w{  "Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank" }
+   
+
+    CSV.generate(headers: true) do |csv|
+        csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank"]
+
+        monthly_reports.all.each do |monthly_report|
+
+            csv<<[
+              monthly_report.date,
+              monthly_report.store_name,
+              monthly_report.tid,
+              monthly_report.status,
+              monthly_report.card_type,
+              monthly_report.card_network,
+              monthly_report.amount,
+              monthly_report.store_mdr,
+              monthly_report.new_amount,
+              monthly_report.acquirer,
+
+            
+          
+          ]
+        end
+      end
+      
   end
 
   

@@ -3,10 +3,12 @@
     <button class="dropbtn">Reports</button>
     <div class="dropdown-content">
         <%=link_to("Daily report",daily_report_store_path)%>
-        <input type="date" id="start" name="start">
-        <%=link_to("Monthly report",monthly_report_store_path)%>
-        <input type="month" id="start" name="start">
-        <%=link_to("Yearly report",yearly_report_store_path)%>
+    
+        <%= form_with  url:daily_report_store_url   do |form| %>
+            <%= form.date_field :d_a_t_e %>
+            <%= form.submit %>
+        <% end %>
+        
         
     </div>
 </div>

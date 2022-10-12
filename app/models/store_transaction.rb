@@ -28,7 +28,7 @@ class StoreTransaction < ApplicationRecord
             new_store_transaction.name = row['Name'].to_s.delete("\u0000")
             new_store_transaction.card_issuer = row['Card Issuer'].to_s.delete("\u0000")
             new_store_transaction.card_type = row['Card Type'].to_s.delete("\u0000")
-            new_store_transaction.card_network = row['Card Network'].to_s.delete("\u0000")
+            new_store_transaction.card_network = row['Card Network']
             new_store_transaction.card_colour = row['Card Colour'].to_s.delete("\u0000")
             new_store_transaction.txn_id = row['TxnID'].to_s.delete("\u0000")
             new_store_transaction.invoice = row['Invoice'].to_s.delete("\u0000")
@@ -37,7 +37,7 @@ class StoreTransaction < ApplicationRecord
             new_store_transaction.amount = row['Amount'].to_s.delete("\u0000")
             new_store_transaction.tip_amount = row['Tip Amount'].to_s.delete("\u0000")
             new_store_transaction.currency = row['Currency'].to_s.delete("\u0000")
-            new_store_transaction.date = row['Date'].to_s.delete("\u0000")
+            new_store_transaction.date = row['Date']
             new_store_transaction.status = row['Status'].to_s.delete("\u0000")
             new_store_transaction.settlement_date = row['SettlementDate'].to_s.delete("\u0000")
             new_store_transaction.cashier = row['Cashier'].to_s.delete("\u0000")

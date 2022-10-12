@@ -54,7 +54,12 @@ class StoresController < ApplicationController
   end
   def daily_report
     @store=Store.find(params[:id])
+<<<<<<< HEAD
+    @daily_reports=  @store.store_transactions.joins(:store).order(date: :desc).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
+    @daily_sum =  @daily_reports.sum(:amount)
+=======
     @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id",)
+>>>>>>> 6ae24ee3b1be60707ffd8ecb4f9a2e9c2790affd
     respond_to do |format|
       format.html
       format.csv {send_data  to_csv(@daily_reports)  , filename: "daily report-#{Date.today}.csv"}

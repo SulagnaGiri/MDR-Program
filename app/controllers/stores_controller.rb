@@ -54,12 +54,8 @@ class StoresController < ApplicationController
   end
   def daily_report
     @store=Store.find(params[:id])
-<<<<<<< HEAD
-    @daily_reports=  @store.store_transactions.joins(:store).order(date: :desc).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id")
-    @daily_sum =  @daily_reports.sum(:amount)
-=======
-    @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id",)
->>>>>>> 6ae24ee3b1be60707ffd8ecb4f9a2e9c2790affd
+    @daily_reports=  @store.store_transactions.joins(:store).select("card_type ","name","card_colour","amount","date::DATE as day","store_name","tid","txn_id","store_id").where("(date::DATE)=?",params[:date])
+
     respond_to do |format|
       format.html
       format.csv {send_data  to_csv(@daily_reports)  , filename: "daily report-#{Date.today}.csv"}
@@ -67,7 +63,7 @@ class StoresController < ApplicationController
   end
   def monthly_report
     @store=Store.find(params[:id])
-   
+    binding.pry
     @store_types="others"
     @monthly_reports=  @store.store_transactions.joins(:store).select("date","store_name","tid","status","card_type","card_network","amount","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD') THEN 2.00 WHEN card_type='Debit' AND amount<2000 
     AND (card_network='VISA'OR card_network='MASTERCARD')THEN 0.45 WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN 0.95 ELSE  0.00  END AS store_mdr",

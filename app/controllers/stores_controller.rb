@@ -3,7 +3,7 @@ class StoresController < ApplicationController
   
 
   def index
-    @stores=Store.all
+    @stores=Store.sorted
   end
 
   def show
@@ -62,17 +62,30 @@ class StoresController < ApplicationController
   end
   def monthly_report
     @store=Store.find(params[:id])
-    
+   
     @store_types="others"
     @monthly_reports=  @store.store_transactions.joins(:store).select("date","store_name","tid","status","card_type","card_network","amount","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD') THEN 2.00 WHEN card_type='Debit' AND amount<2000 
-    AND (card_network='VISA'OR card_network='MASTERCARD')THEN 0.45 WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN 0.95 ELSE  0.00  END AS store_mdr","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    AND (card_network='VISA'OR card_network='MASTERCARD')THEN 0.45 WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN 0.95 ELSE  0.00  END AS store_mdr",
+    "CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
     THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END AS new_amount",
-    "acquirer")
+    "CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN ((amount*2.00*18)/(100*100)) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45*18)/(100*100))
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95*18)/(100*100)) ELSE ((amount*0.00*18)/(100*100)) END AS gst_amount",
+    "CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN (amount-((amount*2.00)/100)-((amount*2.00*18)/(100*100))) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.45)/100)-((amount*0.45*18)/(100*100)))
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.95)/100)-((amount*0.95*18)/(100*100))) ELSE (amount-((amount*0.00)/100)-((amount*0.00*18)/(100*100))) END AS total_amount",
+    "acquirer").order("extract(month from date) DESC")
     @amount_sum  = @monthly_reports.sum(:amount)
     @new_amount  = @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
     THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END ")
+    @gst= @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN ((amount*2.00*18)/(100*100)) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45*18)/(100*100))
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95*18)/(100*100)) ELSE ((amount*0.00*18)/(100*100)) END ")
+    @payable_amount= @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
+    THEN (amount-((amount*2.00)/100)-((amount*2.00*18)/(100*100))) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.45)/100)-((amount*0.45*18)/(100*100)))
+    WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.95)/100)-((amount*0.95*18)/(100*100))) ELSE (amount-((amount*0.00)/100)-((amount*0.00*18)/(100*100))) END" )
     respond_to do |format|
       format.html
       format.csv {send_data  to_csv(@monthly_reports,@store_type)  , filename: "monthly report-#{Date.today}.csv"}
@@ -96,19 +109,19 @@ class StoresController < ApplicationController
 
 
   def to_csv (daily_reports)
-    attributes = %w{  store_name  tid  store_id  txn_id  name card_type  card_colour  amount  date }
+    # attributes = %w{  "Store Name"  "TID"  "Store ID"  txn_id  name card_type  card_colour  amount  date }
    
 
     CSV.generate(headers: true) do |csv|
-        csv <<attributes
+        csv <<[ "Store ID", "Store Name" , "TID" , "Txn ID", "Name", "Card Type", "Card colour", "Amount", "Date"]
 
         daily_reports.all.each do |daily_report|
 
             csv<<[
+            daily_report.store_id,
             daily_report.store_name,
             # store.city,
             daily_report.tid,
-            daily_report.store_id,
             daily_report.txn_id,
             daily_report.name,
             daily_report.card_type,
@@ -125,7 +138,7 @@ class StoresController < ApplicationController
    
 
     CSV.generate(headers: true) do |csv|
-        csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank"]
+        csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount","GST","Store Payable", "Acquring Bank"]
 
         monthly_reports.all.each do |monthly_report|
 
@@ -139,7 +152,9 @@ class StoresController < ApplicationController
               monthly_report.amount,
               monthly_report.store_mdr,
               monthly_report.new_amount,
-              monthly_report.acquirer,
+              monthly_report.gst_amount,
+              monthly_report.total_amount,
+              monthly_report.acquirer
 
             
           
@@ -148,6 +163,6 @@ class StoresController < ApplicationController
       end
       
   end
-
+  
   
 end

@@ -48,5 +48,5 @@ class StoreTransaction < ApplicationRecord
         
         end
     end
-
+    
 end

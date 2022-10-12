@@ -1,15 +1,14 @@
 <%=link_to("Back to list",stores_path)%>
 <div class="dropdown">
     <button class="dropbtn">Reports</button>
-    <div class="dropdown-content">
-        <%=link_to("Daily report",daily_report_store_path)%>
+    <div class="dropdown-content", turbolinks="false" >
+        <%="Daily report"%>
+        <body data-no-turbolink="true">
     
-        <%= form_with  url:daily_report_store_url   do |form| %>
+        <%= form_with  url:daily_report_store_url, local: true   do |form| %>
             <%= form.date_field :d_a_t_e %>
-            <%= form.submit %>
-        <% end %>
-        
-        
+            <%= form.submit  %>
+        <% end %>  
     </div>
 </div>
 <center><h2><%=@page_title="Store Details"%></h2></center> <br>

@@ -54,8 +54,7 @@ class StoresController < ApplicationController
   end
   def daily_report
     @store=Store.find(params[:id])
-     @date = params[:d_a_t_e]
-    @daily_reports=  @store.store_transactions.joins(:store).order(date: :desc).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id").where("DATE(date) = ?", @date)
+    @daily_reports=  @store.store_transactions.joins(:store).order(date: :desc).select("card_type ","name","card_colour","amount","date","store_name","tid","txn_id","store_id").where("DATE(date) = ?", params[:day])
     @daily_sum =  @daily_reports.sum(:amount)
   
     respond_to do |format|
@@ -65,6 +64,7 @@ class StoresController < ApplicationController
   end
   def monthly_report
     @store=Store.find(params[:id])
+    @month = params[:month]
     
     @store_types="others"
     @monthly_reports=  @store.store_transactions.joins(:store).select("date","store_name","tid","status","card_type","card_network","amount","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD') THEN 2.00 WHEN card_type='Debit' AND amount<2000 
@@ -72,14 +72,15 @@ class StoresController < ApplicationController
     THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END AS new_amount",
     "acquirer")
+    
     @amount_sum  = @monthly_reports.sum(:amount)
     @new_amount  = @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
     THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.95)/100) ELSE ((amount*0.00)/100) END ")
-    respond_to do |format|
-      format.html
-      format.csv {send_data  to_csv(@monthly_reports,@store_type)  , filename: "monthly report-#{Date.today}.csv"}
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.csv {send_data  to_csv(@monthly_reports)  , filename: "monthly report-#{Date.today}.csv"}
+    # end
 
   end
   def yearly_report
@@ -123,34 +124,34 @@ class StoresController < ApplicationController
         end
       end
   end
-  def to_csv (monthly_reports  ,store_type)
-    # attributes = %w{  "Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank" }
+  # def to_csv (monthly_reports)
+  #   # attributes = %w{  "Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank" }
    
 
-    CSV.generate(headers: true) do |csv|
-        csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank"]
+  #   CSV.generate(headers: true) do |csv|
+  #       csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank"]
 
-        monthly_reports.all.each do |monthly_report|
+  #       monthly_reports.all.each do |monthly_report|
 
-            csv<<[
-              monthly_report.date,
-              monthly_report.store_name,
-              monthly_report.tid,
-              monthly_report.status,
-              monthly_report.card_type,
-              monthly_report.card_network,
-              monthly_report.amount,
-              monthly_report.store_mdr,
-              monthly_report.new_amount,
-              monthly_report.acquirer,
+  #           csv<<[
+  #             monthly_report.date,
+  #             monthly_report.store_name,
+  #             monthly_report.tid,
+  #             monthly_report.status,
+  #             monthly_report.card_type,
+  #             monthly_report.card_network,
+  #             monthly_report.amount,
+  #             monthly_report.store_mdr,
+  #             monthly_report.new_amount,
+  #             monthly_report.acquirer,
 
             
           
-          ]
-        end
-      end
+  #         ]
+  #       end
+  #     end
       
-  end
+  # end
 
   
 end

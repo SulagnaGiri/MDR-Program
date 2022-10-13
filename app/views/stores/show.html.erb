@@ -1,7 +1,8 @@
 <%=link_to("Back to list",stores_path)%>
 
-<div class="dropdown">
-    <button class="dropbtn">Reports</button>
+
+<div class="dropdown" >
+    <button class="dropbtn"onclick="dropdown()" id="report">Reports</button>
     <div class="dropdown-content", turbolinks="false" >
         <div onclick="TestsFunction()" id="Dropdown">Daily report</div>
         <div id="TestsDiv" style="display:none">
@@ -10,7 +11,15 @@
             <%= form.submit  %>
         <% end %> 
         </div>
+        <div onclick="TestFunction()" id="Drop">Monthly report</div>
+        <div id="TestDiv" style="display:none">
+        <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
+            <%= form.month_field :month %>
+            <%= form.submit  %>
+        <% end %>
+        </div>
     </div>
+    
 </div>
 
 <center><h2><%=@page_title="Store Details"%></h2></center> <br>

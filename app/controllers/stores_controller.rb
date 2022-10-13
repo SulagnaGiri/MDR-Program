@@ -65,7 +65,7 @@ class StoresController < ApplicationController
   end
   def monthly_report
     @store=Store.find(params[:id])
-    binding.pry
+    @month=params[:month]
     @store_types="others"
     @monthly_reports=  @store.store_transactions.joins(:store).select("date","store_name","tid","status","card_type","card_network","amount","CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD') THEN 2.00 WHEN card_type='Debit' AND amount<2000 
     AND (card_network='VISA'OR card_network='MASTERCARD')THEN 0.45 WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN 0.95 ELSE  0.00  END AS store_mdr",
@@ -78,7 +78,7 @@ class StoresController < ApplicationController
     "CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
     THEN (amount-((amount*2.00)/100)-((amount*2.00*18)/(100*100))) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.45)/100)-((amount*0.45*18)/(100*100)))
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.95)/100)-((amount*0.95*18)/(100*100))) ELSE (amount-((amount*0.00)/100)-((amount*0.00*18)/(100*100))) END AS total_amount",
-    "acquirer").order("extract(month from date) DESC")
+    "acquirer").where("to_char(date, 'YYYY-MM')=?",@month)
     @amount_sum  = @monthly_reports.sum(:amount)
     @new_amount  = @monthly_reports.sum(:"CASE WHEN card_type='Credit' AND (card_network='VISA'OR card_network='MASTERCARD')
     THEN ((amount*2.00)/100) WHEN card_type='Debit' AND amount<2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN ((amount*0.45)/100)
@@ -91,7 +91,7 @@ class StoresController < ApplicationController
     WHEN card_type='Debit' AND amount>2000 AND (card_network='VISA'OR card_network='MASTERCARD') THEN (amount-((amount*0.95)/100)-((amount*0.95*18)/(100*100))) ELSE (amount-((amount*0.00)/100)-((amount*0.00*18)/(100*100))) END" )
     respond_to do |format|
       format.html
-      format.csv {send_data  to_csv(@monthly_reports,@store_type)  , filename: "monthly report-#{Date.today}.csv"}
+      format.csv {send_data  as_csv(@monthly_reports)  , filename: "monthly report-#{Date.today}.csv"}
     end
 
   end
@@ -118,7 +118,7 @@ class StoresController < ApplicationController
     CSV.generate(headers: true) do |csv|
         csv <<[ "Store ID", "Store Name" , "TID" , "Txn ID", "Name", "Card Type", "Card colour", "Amount", "Date"]
 
-        daily_reports.all.each do |daily_report|
+        daily_reports.each do |daily_report|
 
             csv<<[
             daily_report.store_id,
@@ -130,20 +130,20 @@ class StoresController < ApplicationController
             daily_report.card_type,
             daily_report.card_colour,
             daily_report. amount,
-            daily_report.date,
+            daily_report.date
           
           ]
         end
       end
   end
-  def to_csv (monthly_reports  ,store_type)
+  def as_csv (monthly_reports)
     # attributes = %w{  "Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount", "Acquring Bank" }
    
 
     CSV.generate(headers: true) do |csv|
         csv <<["Date","Store Name", "TID#",  "Status", "Card Type", "Brand Type", "Amount", "Store MDR", "Amount","GST","Store Payable", "Acquring Bank"]
 
-        monthly_reports.all.each do |monthly_report|
+        monthly_reports.each do |monthly_report|
 
             csv<<[
               monthly_report.date,

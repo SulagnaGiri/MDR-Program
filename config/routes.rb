@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       get :delete, :daily_report ,:monthly_report, :yearly_report
       post :daily_report
+      post :monthly_report
     end  
   end
   # get 'csv_transaction_details', to: 'csv_transaction_details#new'

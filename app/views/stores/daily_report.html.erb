@@ -1,7 +1,7 @@
 <%=link_to("Back to list",store_path(@store))%>
-<%=link_to(" Download Daily report",daily_report_store_path(format: :csv))%>
+<%=link_to(" Download Daily report",daily_report_store_path(format: "csv" , params: params.to_unsafe_h))%>
 <center><h2>Daily Report</h2></center>
-<table class="table table-hover table-striped" >
+<table class="table table-hover table-striped"id="table_id" >
 <tr class="header">
     <th scope="col">Store ID</th>
     <th scope="col">Store Name</th>
@@ -25,12 +25,6 @@
         <td scope="row"><%=daily_report.card_colour %></td>
         <td scope="row"><%=daily_report.amount %></td>
         <td scope="row"><%=daily_report.date%></td>
-
-        
     </tr>
-
 <%end%>
-
-
 </table>
-<h1><%=@daily_sum %></h1>

@@ -23,3 +23,28 @@ function searchStore(){
       }
     }
   }
+  function TestsFunction() {
+    var T = document.getElementById("TestsDiv"),
+        displayValue = "";
+    if (T.style.display == "")
+        displayValue = "none";
+
+    T.style.display = displayValue;
+}
+function TestFunction() {
+  var M = document.getElementById("TestDiv"),
+      displayValue = "";
+  if (M.style.display == "")
+      displayValue = "none";
+
+  M.style.display = displayValue;
+}
+//  document.querySelector('.dropbtn').on('click', function(e) {
+//   e.stopPropagation();
+// });
+function dropdown()
+{
+  var D=document.getElementById("report")
+  D.on('click', function(e) {
+    e.stopPropagation();})
+}

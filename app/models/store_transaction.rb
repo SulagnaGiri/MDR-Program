@@ -1,4 +1,6 @@
 class StoreTransaction < ApplicationRecord
+    paginates_per 20
+    max_paginates_per 50
     belongs_to :store
     has_many :daily_reports
     has_many :weekly_reports

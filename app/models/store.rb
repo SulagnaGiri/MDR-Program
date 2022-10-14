@@ -1,4 +1,7 @@
 class Store < ApplicationRecord
+    paginates_per 20
+    max_paginates_per 50
+    scope :sorted,lambda { order ("id ASC")}
 
     has_many :store_transactions , dependent: :destroy 
 

@@ -46,5 +46,8 @@
     <td scope="row"><h5><%=@amount_sum%></h5></td>
     <td></td><td><h5><%=@new_amount%></h5></td><td><h5><%=@gst%></h5></td><td><h5><%=@payable_amount%></h5></td><td></td>
 </tr>
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+
 </table>
+<%= paginate @monthly_reports ,theme: 'bootstrap-5',
+pagination_class: "pagination-sm flex-wrap justify-content-center",
+nav_class: "d-inline-block" %>

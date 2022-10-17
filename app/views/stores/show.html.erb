@@ -1,5 +1,5 @@
-<%=link_to("Back to list",stores_path)%>
-<div class="dropdown">
+
+<!-- <div class="dropdown">
     <button class="dropbtn">Reports</button>
     <div class="dropdown-content">
         <p>Daily report</p>
@@ -13,19 +13,23 @@
             <%= form.submit  %>
         <% end %>  
     </div>
-</div>
-<center><h2><%=@page_title="Store Details"%></h2></center> <br>
-<table>
+</div> -->
+<div class="edit"><center><%=link_to"Edit",edit_store_path(@store)%></center></div><br><br>
+<center>
+<table class="show-table" >
     <tr>
-        <th>Store Name :</th>
-        <td><%=@store.store_name%></td>
+        <th ><h4>STORE NAME &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; </h4></th><td></td>
+        <td><h4><%=@store.store_name%></h4></td>
     </tr>
     <tr>
-        <th>City</th>
-        <td><%=@store.city%></td>
+        <th class="city-column"><h4>CITY</h4></th><td></td>
+        <td><h4><%=@store.city%></h4></td>
     </tr>
-</table>
-<table class="table table-hover table-striped " summary="Store list">
+</table></center><br><br>
+<div class="row justify-content-center ">
+    <div class="col-auto index-table">
+    <div class="table-responsive">
+<table class="table table-hover " id="table_id" summary="Store list">
 <tr class="header">
     <th scope="col">Acquirer</th>
     <th scope="col">TID</th>
@@ -68,6 +72,7 @@
 
    
 </table>
+    </div></div></div>
 
 
 

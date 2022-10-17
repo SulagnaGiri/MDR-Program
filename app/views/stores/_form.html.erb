@@ -1,18 +1,13 @@
 <table summary="Store form filed">
   <tr>
-    <th>Store Name</th>
-    <td><%= f.text_field :store_name, required: true%></td>
+    <th class="column">STORE &nbsp;&nbsp;</th>
+    <td class="column"><%= f.text_field :store_name, required: true, :size=>"32"%></td>
   </tr>
   <tr>
-    <th>City</th>
-    <td><%= f.text_field :city,required: true%></td>
+    <th class="column">CITY</th>
+    <td class="column"><%= f.text_field :city,required: true%></td>
   </tr>
   <tr>
    
-  <!-- <tr>
-      <th>Created at</th>
-      <td>
-        <%= f.datetime_select(:created_at, :order =>[:day, :month, :year])%>
-      </td>
-    </tr> -->
+  
 </table>

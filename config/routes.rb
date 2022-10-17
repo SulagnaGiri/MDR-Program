@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   end
   resources :stores do
     member do
+      post :daily_report,:monthly_report
       get :delete, :daily_report ,:monthly_report, :yearly_report
-      post :daily_report
+      
     end  
   end
   # get 'csv_transaction_details', to: 'csv_transaction_details#new'

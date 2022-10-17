@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+   #   protect_from_forgery prepend: true
+
      before_action :authenticate_admin_user!
 
     # def after_sign_in_path_for(resource_or_scope)
@@ -11,10 +13,9 @@ class ApplicationController < ActionController::Base
     
     # end
     def after_sign_in_path_for(resource)
-       stores_path # your path
+      stores_path # your path
     end
-
-
+   
       
     
     

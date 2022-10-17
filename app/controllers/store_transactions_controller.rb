@@ -5,6 +5,7 @@ class StoreTransactionsController < ApplicationController
     end
 
     def import
+
         StoreTransaction.import(params[:file])
         redirect_to stores_path, notice: "CSV File  Added Successfully"
                  

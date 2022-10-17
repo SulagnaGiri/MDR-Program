@@ -37,7 +37,7 @@ class StoreTransaction < ApplicationRecord
             new_store_transaction.amount = row['Amount'].to_s.delete("\u0000")
             new_store_transaction.tip_amount = row['Tip Amount'].to_s.delete("\u0000")
             new_store_transaction.currency = row['Currency'].to_s.delete("\u0000")
-            new_store_transaction.date = row['Date']
+            new_store_transaction.date = row['Date'].to_s.delete("\u0000")
             new_store_transaction.status = row['Status'].to_s.delete("\u0000")
             new_store_transaction.settlement_date = row['SettlementDate'].to_s.delete("\u0000")
             new_store_transaction.cashier = row['Cashier'].to_s.delete("\u0000")

@@ -1,9 +1,14 @@
-<%=link_to("Back to store list",stores_path)%>
-<div class="new">
+<nav class="navbar  store-navbar">
+  <a class="navbar-brand edit-home"id="new-home"><h5><%= link_to "Home",stores_path %></h5></a>
+  <a class="navbar-brand new-signout" ><h5><%= link_to "Sign out",destroy_admin_user_session_path, :method => :delete %></h5></a>
+</nav>
+<center>
+<div class="new-store">
   <h2>New Store</h2>
   <%=form_for(@store,:url=>stores_path,:method => 'post') do |f|%>
-  <%=render(:partial =>'form',:locals=>{:f=>f})%>
-  <div class="form-buttons"><%= f.submit("Create Store")%></div>
+  <%=render(:partial =>'form',:locals=>{:f=>f})%><br>
+  <div class="form-buttons"><%= f.submit"Create Store",class: 'button'%></div>
   <% end%>
 
-</div>
+</div><br><%=link_to image_tag("/assets/back.png" , height:'60px',width:'60px'),stores_path%>
+</center>

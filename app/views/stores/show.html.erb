@@ -1,7 +1,7 @@
-<%=link_to("Back to list",stores_path)%>
+<!-- <%=link_to"Back to list",stores_path ,class:"back"%> -->
 
-
-<div class="dropdown" >
+<button type="button" class="btn action edit"><%=link_to("Edit",edit_store_path(@store),:id=>' edit')%></button>
+<!-- <div class="dropdown" >
     <button class="dropbtn"onclick="dropdown()" id="report">Reports</button>
     <div class="dropdown-content", turbolinks="false" >
         <div onclick="TestsFunction()" id="Dropdown">Daily report</div>
@@ -20,20 +20,25 @@
         </div>
     </div>
     
-</div>
+</div> -->
 
-<center><h2><%=@page_title="Store Details"%></h2></center> <br>
-<table>
+ <br>
+<center><table>
     <tr>
-        <th>Store Name :</th>
-        <td><%=@store.store_name%></td>
+        <th class="column heading"><h4>STORE NAME</h4> </th>
+        <td class="column"><h4><%=@store.store_name%></h4></td>
     </tr>
     <tr>
-        <th>City</th>
-        <td><%=@store.city%></td>
+        <th class="column heading"><h4>CITY</h4></th>
+        
+        <td class="column city-column"><h4><%=@store.city%></h4></td>
     </tr>
-</table>
-<table class="table table-hover table-striped " summary="Store list"id="table_id">
+</table></center><br><br>
+
+<div class="row justify-content-center ">
+<div class="col-auto index-table">
+<div class="table-responsive">
+<table class="table table-hover " summary="Store list"id="table_id">
 <tr class="header">
     <th scope="col">Acquirer</th>
     <th scope="col">TID</th>
@@ -76,6 +81,9 @@
 
    
 </table>
+<div>
+</div>
+</div>
 
 
 

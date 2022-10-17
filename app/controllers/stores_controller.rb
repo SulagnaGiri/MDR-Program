@@ -130,8 +130,9 @@ class StoresController < ApplicationController
             daily_report.card_type,
             daily_report.card_colour,
             daily_report. amount,
-            daily_report.date
-          
+            daily_report.date,
+           
+            
           ]
         end
       end

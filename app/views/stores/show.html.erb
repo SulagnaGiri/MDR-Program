@@ -1,59 +1,67 @@
-<%=link_to("Back to list",stores_path)%>
+<%=link_to("Back to list",stores_path) %>
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Reports</button>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
 
-<div class="dropdown" >
-    <button class="dropbtn"onclick="dropdown()" id="report">Reports</button>
-    <div class="dropdown-content", turbolinks="false" >
-        <div onclick="TestsFunction()" id="Dropdown">Daily report</div>
-        <div id="TestsDiv" style="display:none">
-        <%= form_with  url:daily_report_store_url, local: true   do |form| %>
-            <%= form.date_field :day %>
-            <%= form.submit  %>
-        <% end %>  
-        <p>Monthly Report</p>
-        <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
-            <%= form.month_field :month %>
-            <%= form.submit  %>
-        <% end %> 
-        </div>
-        <div onclick="TestFunction()" id="Drop">Monthly report</div>
-        <div id="TestDiv" style="display:none">
-        <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
-            <%= form.month_field :month %>
-            <%= form.submit  %>
-        <% end %>
-        </div>
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close"  style="  float: right;">&times;</span>
+      
+    </div>
+    <div class="modal-body">
+    <%= form_with  url:daily_report_store_url, local: true   do |form| %>
+        <%= form.date_field :day  , class:"form"%> 
+        <%= form.submit "Daily report", class:"submit"  %>
+    <% end %>
+    <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
+        <%= form.month_field :month , class:"form" %> 
+        <%= form.submit  "Monthly report", class:"submit"  %>
+        
+    <% end %> 
+    
     </div>
     
+  </div>
+
 </div>
 
-<center><h2><%=@page_title="Store Details"%></h2></center> <br>
-<table>
+
+
+<center><h2><%=@page_title="STORE DETAILS"%></h2></center> <hr>
+<center><table> 
+<th >Store Name </th>
     <tr>
-        <th>Store Name :</th>
+        
         <td><%=@store.store_name%></td>
     </tr>
+    <th>City</th>
     <tr>
-        <th>City</th>
+        
         <td><%=@store.city%></td>
     </tr>
+    
 </table>
+</center>
+<hr>
 <table class="table table-hover table-striped " summary="Store list"id="table_id">
 <tr class="header">
     <th scope="col">Acquirer</th>
     <th scope="col">TID</th>
     <th scope="col">POS</th>
-    <th scope="col">mid</th>
-    <th scope="col">tid</th>
-    <th scope="col">pos</th>
-    <th scope="col">batch no</th>
-    <th scope="col">card no</th>
+    <th scope="col">MID</th>
+    <th scope="col">TID</th>
+    <th scope="col">POS</th>
+    <th scope="col">Batch No</th>
+    <th scope="col">Card No</th>
     <th scope="col">Name</th>
-    <th scope="col">card_issuer</th>
-    <th scope="col">card_type</th>
-    <th scope="col">card_colour</th>
-    <th scope="col">txn_id</th>
-    <th scope="col">invoice</th>
+    <th scope="col">Card Issuer</th>
+    <th scope="col">Card Type</th>
+    <th scope="col">Card Colour</th>
+    <th scope="col">Txn_ID</th>
+    <th scope="col">Invoice</th>
     <th scope="col">Date</th>
 </tr>
 
@@ -81,6 +89,11 @@
 
    
 </table>
+<%= paginate @store_transactions, theme: 'bootstrap-5',
+pagination_class: "pagination-sm flex-wrap justify-content-center",
+nav_class: "d-inline-block"
+%>
+
 
 
 

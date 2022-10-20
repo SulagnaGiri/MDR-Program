@@ -1,5 +1,5 @@
 class StoreTransactionsController < ApplicationController
-
+    layout "store"
     def index
         @storetransaction = StoreTransaction.all
     end

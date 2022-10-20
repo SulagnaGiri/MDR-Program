@@ -50,3 +50,38 @@ h2
 {
     margin-left: 0.55% !important;
 }
+.heading_csv {
+    font-family: Serif;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+.upload_csv{
+    margin: 10%;
+    margin-left: 25%;
+  
+    height: 200px;
+    width: 50%;
+    background-color: rgb(217, 230, 238);
+    box-shadow: 5px,5px, 5px, 5px, #EFEFEF;
+    border-radius: 10px;
+
+   
+
+
+}
+
+.import_btn{
+    background-color: #6F38C5;
+    border: none;
+    color:#e9edf3;
+    border-radius: 5px;
+    box-shadow: 5px,5px, 5px, 5px, #EFEFEF;
+    height: max-content;
+    
+
+}
+.import_btn:hover
+{
+    color:#FFFAE7;
+}

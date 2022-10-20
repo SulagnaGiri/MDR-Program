@@ -1,36 +1,103 @@
-<%=link_to("Back to list",store_path(@store))%>
-<%=link_to(" Download Daily report",daily_report_store_path(format: :csv))%>
-<center><h2>Daily Report</h2></center>
-<table class="table table-hover table-striped" >
-<tr class="header">
-    <th scope="col">Store ID</th>
-    <th scope="col">Store Name</th>
-    <th scope="col">TID</th>
-    <th scope="col">Txn ID</th>
-    <th scope="col">Name</th>
-    <th scope="col">Card Type</th>
-    <th scope="col">Card Color</th>
-    <th scope="col">Amount</th>
-    <th scope="col">Date</th>
-    
-</tr>
-<% @daily_reports.each do |daily_report| %>
-    <tr>
-        <td scope="row"><%=daily_report.store_id %></td>
-        <td scope="row"><%=daily_report.store_name %></td>
-        <td scope="row"><%=daily_report.tid %></td>
-        <td scope="row"><%=daily_report.txn_id %></td>
-        <td scope="row"><%=daily_report.name%></td>
-        <td scope="row"><%=daily_report.card_type %></td>
-        <td scope="row"><%=daily_report.card_colour %></td>
-        <td scope="row"><%=daily_report.amount %></td>
-        <td scope="row"><%=daily_report.date%></td>
+<br>
+<%=link_to "Back",stores_path,class:'btn back',role:'button'%>
+<center><h3 >Daily Report</h3></center>
+<!-- <center><h2></h2></center><br><br> --><br><br><br><br><br><br>
+<!-- <image src="/assets/search.png", heignt="30px", width="30px", alt="serach", class="report_search"> -->
+    <div class=" daily-report-search">
+    <!-- <form class="d-flex ">
+    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form> -->
+</div>
+    <!-- <form class="d-flex show-search">
+        <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form> -->
+    <!-- <image src="/assets/data-transfer-download.png" height="30px" width="30px" class="download"> -->
+<%=link_to image_tag("/assets/data-transfer-download.png" ,height:"20px", width:"20px", class:"download")+" Export to CSV",daily_report_store_path(format: :csv, params: params.to_unsafe_h),class:"btn daily_report",role:'button'%>
+<!-- <image src="/assets/data-transfer-download.png" height="30px" width="30px" class="download"></image> -->
 
+    
+    <!-- <%= form_with  url:daily_report_store_url, local: true   do |form| %>
+    <div class="filter">
+            <%= form.date_field :day  , class:"form",required: true%> 
+    </div>
+    <div class="daily_report-submit"><%= form.submit "Daily report", class:"report_submit"  %></div>
+            
+    <% end %><br> -->
+    <!-- <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black select_date">Search by Date</button> -->
+    
+  <!-- <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Modal Header</h2>
+        <%= form_with  url:daily_report_store_url, local: true   do |form| %>
+        <%= form.date_field :day  , class:"form",required: true%> 
+        <%= form.submit "Daily report", class:"submit"  %>
+<% end %>
+    </div>
+  </div> -->
+  <div style="width: 100%; display: table;">
+    <div style="display: table-row">  
+<!-- <div class="row justify-content-center  ">
+    <div class="col-auto "> -->
+    <div class="table-responsive daily_report_table">
+<table class="table table-hover table-borderless" id="table_id" summary="Store list">
+
+    <tr class="header">
+        <th scope="col">Store ID</th>
+        <th scope="col">Store Name</th>
+        <th scope="col">TID</th>
+        <th scope="col">Txn ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Card Type</th>
+        <th scope="col">Card Color</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
         
     </tr>
-
-<%end%>
-
+    <% @daily_reports.each do |daily_report| %>
+        <tr>
+            <td scope="row"><%=daily_report.store_id %></td>
+            <td scope="row"><%=daily_report.store_name %></td>
+            <td scope="row"><%=daily_report.tid %></td>
+            <td scope="row"><%=daily_report.txn_id %></td>
+            <td scope="row"><%=daily_report.name%></td>
+            <td scope="row"><%=daily_report.card_type %></td>
+            <td scope="row"><%=daily_report.card_colour %></td>
+            <td scope="row"><%=daily_report.amount %></td>
+            <td scope="row"><%=daily_report.date%></td>
+        </tr>
+    <%end%>
+    
+  
+    
+    
 
 </table>
-<h1><%=@daily_sum %></h1>
+
+     </div><br>
+    
+    <div class="seconddiv"><form class="d-flex ">
+        <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form> 
+        <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black select_date">Search by Date</button>
+    
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-animate-zoom">
+              <header class="w3-container w3-teal"> 
+                <span onclick="document.getElementById('id01').style.display='none'" 
+                class="w3-button w3-display-topright">&times;</span>
+                <h2>Modal Header</h2>
+                <%= form_with  url:daily_report_store_url, local: true   do |form| %>
+                <%= form.date_field :day  , class:"form",required: true%> 
+                <%= form.submit "Daily report", class:"submit"  %>
+        <% end %>
+            </div>
+          </div></div>
+    </div></div>
+    <div class="paginate">
+        <%= paginate  @daily_reports , theme: 'bootstrap-5',
+    pagination_class: "pagination-sm flex-wrap justify-content-center",
+    nav_class: "d-inline-block"%>
+        </div>

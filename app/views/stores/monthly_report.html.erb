@@ -1,6 +1,18 @@
-<%=link_to("Back to list",store_path(@store))%><%=link_to(" Download Monthly report",monthly_report_store_path(format: :csv))%>
-<center><h2>Monthly Report</h2></center>
-<table class="table table-hover table-striped" >
+
+<br>
+<%=link_to "Back",stores_path,class:'btn back',role:'button'%>
+<center><h3 >Monthly Report</h3></center>
+<!-- <center><h2></h2></center><br><br> --><br><br><br><br><br><br>
+<!-- <image src="/assets/search.png", heignt="30px", width="30px", alt="serach", class="monthly-report_search"> -->
+    <form class="d-flex monthly_report-search">
+    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form><br>
+<%=link_to image_tag("/assets/data-transfer-download.png" ,height:"20px", width:"20px", class:"download")+" Export to CSV",monthly_report_store_path(format: "csv" , params: params.to_unsafe_h),class:"btn monthly_report",role:'button'%><br>
+<!-- <div class="row justify-content-center ">
+    <div class="col-auto index-table"> -->
+    <div class="table-responsive">
+<table class="table table-hover " id="table_id" summary="Store list">
+
 <tr class="header">
     <th scope="col">Trans_date</th>
     <th scope="col">Store </th>
@@ -14,6 +26,8 @@
     <th scope="col">Amount</th>
     <th scope="col">Store MDR</th>
     <th scope="col">Amount</th>
+    <th scope="col">GST</th>
+    <th scope="col">Store Payabale</th>
     <th scope="col">Acquring Bank</th>
     
 </tr>
@@ -31,7 +45,11 @@
     <td scope="row"><%=monthly_report.amount %></td>
     <td scope="row"><%=monthly_report.store_mdr %></td>
     <td scope="row"><%=monthly_report.new_amount %></td>
+    <td scope="row"><%=monthly_report.gst_amount %></td>
+    <td scope="row"><%=monthly_report.total_amount %></td>
     <td scope="row"><%=monthly_report.acquirer %></td>
+
+        
 
         
 </tr>
@@ -40,7 +58,13 @@
 <tr>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><h5>Total</h5></td>
     <td scope="row"><h5><%=@amount_sum%></h5></td>
-    <td></td><td><h5><%=@new_amount%></h5></td><td></td>
+    <td></td><td><h5><%=@new_amount%></h5></td><td><h5><%=@gst%></h5></td><td><h5><%=@payable_amount%></h5></td><td></td>
 </tr>
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
 </table>
+    </div><br>
+    <div class="paginate">
+    <%= paginate @monthly_reports ,theme: 'bootstrap-5',
+pagination_class: "pagination-sm flex-wrap justify-content-center",
+nav_class: "d-inline-block" %>
+    </div>

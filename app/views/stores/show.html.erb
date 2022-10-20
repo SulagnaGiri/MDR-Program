@@ -1,50 +1,69 @@
+<br>
+<%=link_to "Back",stores_path,class:'btn back',role:'button'%>
+<!-- <button class="back"><%=link_to("Back",stores_path)%></button> -->
+<center><h3 >STORE &nbsp;DETAILS</h3></center>
+<!-- <div class="edit"><%=link_to"Edit",edit_store_path(@store)%></div> -->
+<%=link_to"Edit",edit_store_path(@store),class:'btn edit',role:'button'%>
+<br><br>
+<%=link_to"Daily Report",daily_report_store_path%>
+<button  id="myBtn"class="btn reports" type="submit">Reports</button>
 
-<!-- <div class="dropdown">
-    <button class="dropbtn">Reports</button>
-    <div class="dropdown-content">
-        <p>Daily report</p>
-        <%= form_with  url:daily_report_store_url, local: true   do |form| %>
-            <%= form.date_field :day %>
-            <%= form.submit  %>
-        <% end %>  
-        <p>Monthly Report</p>
-        <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
-            <%= form.month_field :month %>
-            <%= form.submit  %>
-        <% end %>  
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close"  style="  float: right;">&times;</span>
+      
     </div>
-</div> -->
-<div class="edit"><center><%=link_to"Edit",edit_store_path(@store)%></center></div><br><br>
+    <div class="modal-body">
+    
+    <%= form_with  url:monthly_report_store_url, local: true  do |form| %>
+        <%= form.month_field :month , class:"form",required: true %> 
+        <%= form.submit  "Monthly report", class:"submit"  %>
+        
+    <% end %> 
+    
+    </div>
+    
+  </div>
+
+</div>
+
 <center>
 <table class="show-table" >
     <tr>
-        <th ><h4>STORE NAME &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; </h4></th><td></td>
+        <th ><h4>STORE &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; </h4></th><td></td>
         <td><h4><%=@store.store_name%></h4></td>
     </tr>
     <tr>
         <th class="city-column"><h4>CITY</h4></th><td></td>
         <td><h4><%=@store.city%></h4></td>
     </tr>
-</table></center><br><br>
+</table></center><br><br><br><br>
+<!-- <image src="/assets/search.png", heignt="30px", width="30px", alt="serach", class="search-icon"> -->
+    <form class="d-flex show-search">
+    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+   
 <div class="row justify-content-center ">
     <div class="col-auto index-table">
     <div class="table-responsive">
-<table class="table table-hover " id="table_id" summary="Store list">
+<table class="table table-hover table-borderless" id="table_id" summary="Store list">
 <tr class="header">
     <th scope="col">Acquirer</th>
     <th scope="col">TID</th>
     <th scope="col">POS</th>
-    <th scope="col">mid</th>
-    <th scope="col">tid</th>
-    <th scope="col">pos</th>
-    <th scope="col">batch no</th>
-    <th scope="col">card no</th>
+    <th scope="col">MID</th>
+    <th scope="col">Batch no</th>
+    <th scope="col">Card no</th>
     <th scope="col">Name</th>
-    <th scope="col">card_issuer</th>
-    <th scope="col">card_type</th>
-    <th scope="col">card_colour</th>
+    <th scope="col">Card Issuer</th>
+    <th scope="col">Card Type</th>
+    <th scope="col">Card Colour</th>
     <th scope="col">txn_id</th>
-    <th scope="col">invoice</th>
+    <th scope="col">Invoice</th>
     <th scope="col">Date</th>
 </tr>
 
@@ -52,8 +71,6 @@
     <tr>
         <td scope="row"><%=store_transaction.acquirer%></td>
         <td scope="row"><%=store_transaction.tid%></td>
-        <td scope="row"><%=store_transaction.pos%></td>
-        <td scope="row"><%=store_transaction.mid%></td>
         <td scope="row"><%=store_transaction.tid%></td>
         <td scope="row"><%=store_transaction.pos%></td>
         <td scope="row"><%=store_transaction.batch_no%></td>
@@ -72,9 +89,15 @@
 
    
 </table>
-    </div></div></div>
-
-
+    </div></div></div><br>
+    <div class="paginate">
+    <%= paginate @store_transactions, theme: 'bootstrap-5',
+    pagination_class: "pagination-sm flex-wrap justify-content-center",
+    nav_class: "d-inline-block "
+    %>
+    </div>
+    
+    
 
 
   

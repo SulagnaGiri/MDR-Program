@@ -1,11 +1,17 @@
-<h3> Import User Data </h3>
+<br>
+<button class="back"><%=link_to("Back",stores_path)%></button>
+<center>
+<div class="upload_csv">
+    <h3 class="heading_csv"> Import CSV File </h3><br>
+    
+    
+    <div class="input_form"><%=form_tag  import_store_transactions_path, multipart: true do %>
+        <%=file_field_tag :file,accept: ".csv",required: true%> 
+        <%=submit_tag  "Upload",class: "import_btn"%>
 
-
-<%=form_tag  import_store_transactions_path, multipart: true do %>
-
-<%=file_field_tag :file%>
-<%=submit_tag "Import CSV"%>
-
-<%end%>
-
-<div>
+        <%end%></div>
+    
+        
+    </div>
+    <!-- <%=link_to image_tag("/assets/back.png", border: 0,size:"50x50",class:"back-icon"),stores_path%>  -->
+</center>

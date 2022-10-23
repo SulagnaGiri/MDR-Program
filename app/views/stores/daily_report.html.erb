@@ -1,62 +1,49 @@
 <br>
-<%=link_to "Back",stores_path,class:'btn back',role:'button'%>
-<center><h3 >Daily Report</h3></center>
-<!-- <center><h2></h2></center><br><br> --><br><br><br><br><br><br>
-<!-- <image src="/assets/search.png", heignt="30px", width="30px", alt="serach", class="report_search"> -->
-    <div class=" daily-report-search">
-    <!-- <form class="d-flex ">
-    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    </form> -->
-</div>
-    <!-- <form class="d-flex show-search">
-        <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        </form> -->
-    <!-- <image src="/assets/data-transfer-download.png" height="30px" width="30px" class="download"> -->
-<%=link_to image_tag("/assets/data-transfer-download.png" ,height:"20px", width:"20px", class:"download")+" Export to CSV",daily_report_store_path(format: :csv, params: params.to_unsafe_h),class:"btn daily_report",role:'button'%>
-<!-- <image src="/assets/data-transfer-download.png" height="30px" width="30px" class="download"></image> -->
-
+<%=link_to image_tag("/assets/back.png", size:"30x30"),store_path,class:'btn back',role:'button'%>
+<center><h3 class="daily_Report_heading" >Daily Report</h3></center> 
+<!-- <br><br><br><br><br><br> --><br><br>
+<div class="card filter" style="width: 650px;">
     
-    <!-- <%= form_with  url:daily_report_store_url, local: true   do |form| %>
-    <div class="filter">
-            <%= form.date_field :day  , class:"form",required: true%> 
-    </div>
-    <div class="daily_report-submit"><%= form.submit "Daily report", class:"report_submit"  %></div>
-            
-    <% end %><br> -->
-    <!-- <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black select_date">Search by Date</button> -->
-    
-  <!-- <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-animate-zoom">
-      <header class="w3-container w3-teal"> 
-        <span onclick="document.getElementById('id01').style.display='none'" 
-        class="w3-button w3-display-topright">&times;</span>
-        <h2>Modal Header</h2>
-        <%= form_with  url:daily_report_store_url, local: true   do |form| %>
-        <%= form.date_field :day  , class:"form",required: true%> 
-        <%= form.submit "Daily report", class:"submit"  %>
+    <div class="card-body">
+      
+ <%= form_with  url:daily_report_store_url, local: true ,html: {class: "date_form"}  do |form| %>
+    <%= form.date_field :day  , class:"form",required: true,label: 'Select Date'%>&nbsp;&nbsp;
+<%= form.submit "FILTER", class:"daily_report_submit"  %>
 <% end %>
+              
     </div>
-  </div> -->
-  <div style="width: 100%; display: table;">
-    <div style="display: table-row">  
-<!-- <div class="row justify-content-center  ">
-    <div class="col-auto "> -->
-    <div class="table-responsive daily_report_table">
-<table class="table table-hover table-borderless" id="table_id" summary="Store list">
+</div>
+  <br><br><br><br>
+  <form class="d-flex daily_search">
+     <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"></form>
+<%=link_to image_tag("/assets/data-transfer-download.png" ,height:"20px", width:"20px", class:"download")+" Export to CSV",daily_report_store_path(format: :csv, params: params.to_unsafe_h),class:"btn daily_report",role:'button'%>
+<br>
+  <div class="row justify-content-center ">
+    <div class="col-auto index-table">
+   
+<div class="table-responsive">   
+   
+<table class="table table-hover table-borderless  daily_report_table" id="table_id" summary="Store list">
 
     <tr class="header">
-        <th scope="col">Store ID</th>
-        <th scope="col">Store Name</th>
-        <th scope="col">TID</th>
-        <th scope="col">Txn ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Card Type</th>
-        <th scope="col">Card Color</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Date</th>
+        <th scope="col" class="col">Store ID</th>
+        <th scope="col" class="col">Store Name</th>
+        <th scope="col"class="col">TID</th>
+        <th scope="col" class="col">Txn ID</th>
+        <th scope="col" class="col">Name</th>
+        <th scope="col" class="col">Card Type</th>
+        <th scope="col" class="col">Card Color</th>
+        <th scope="col" class="col">Amount</th>
+        <th scope="col" class="col">Date</th>
         
     </tr>
-    <% @daily_reports.each do |daily_report| %>
+    
+    <%if @daily_reports.empty? %>
+        <tr>
+            <td colspan="9" scope="row" class="blank">No result found</td>
+        </tr>
+    <% else %>
+        <% @daily_reports.each do |daily_report| %>
         <tr>
             <td scope="row"><%=daily_report.store_id %></td>
             <td scope="row"><%=daily_report.store_name %></td>
@@ -68,6 +55,7 @@
             <td scope="row"><%=daily_report.amount %></td>
             <td scope="row"><%=daily_report.date%></td>
         </tr>
+        <%end%>
     <%end%>
     
   
@@ -75,29 +63,35 @@
     
 
 </table>
-
-     </div><br>
+&nbsp;&nbsp;&nbsp;
     
-    <div class="seconddiv"><form class="d-flex ">
-        <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        </form> 
+    <!-- <div class="seconddiv"><br><div class="filter-heading"><center>FILTER</center></div><br>
+        <form class="d-flex ">
+        &nbsp;&nbsp; <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form><br>&nbsp;
         <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black select_date">Search by Date</button>
     
         <div id="id01" class="w3-modal">
-            <div class="w3-modal-content w3-animate-zoom">
+            <div class="w3-modal-content w3-animate-zoom modal_content">
               <header class="w3-container w3-teal"> 
-                <span onclick="document.getElementById('id01').style.display='none'" 
-                class="w3-button w3-display-topright">&times;</span>
-                <h2>Modal Header</h2>
-                <%= form_with  url:daily_report_store_url, local: true   do |form| %>
+                
+                <div class="modal-today" ><%=Date.today.to_s(:long)%><br><center>
+                    <image src="/assets/calendar.png", height="120px",width="100px"></center></div>
+                
+                
+                <div class="modal_date">
+                <%= form_with  url:daily_report_store_url, local: true ,html: {class: "date_form"}  do |form| %>
                 <%= form.date_field :day  , class:"form",required: true%> 
-                <%= form.submit "Daily report", class:"submit"  %>
-        <% end %>
-            </div>
+                <%= form.submit "OK", class:"submit"  %>
+              <% end %><span  style="color:black" onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span></div>
+            
           </div></div>
-    </div></div>
-    <div class="paginate">
-        <%= paginate  @daily_reports , theme: 'bootstrap-5',
+    </div> -->
+    </div></div></div>
+<br>
+<div class="paginate">
+    <%= paginate  @daily_reports , theme: 'bootstrap-5',
     pagination_class: "pagination-sm flex-wrap justify-content-center",
     nav_class: "d-inline-block"%>
-        </div>
+</div>

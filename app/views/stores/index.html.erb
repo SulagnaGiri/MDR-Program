@@ -1,25 +1,29 @@
 <br>
 
-<center><h3 >STORES</h3></center>
+<center><h3 >STORES</h3></center><br>
 <div class="Store index"><br>
     <br><br><br>
-    <%=link_to"Create new store",new_store_path,id:'create-store',class:'btn create-store',role:'button'%>
+    
+   <div class="index_button"> 
+    <%=link_to"Create new store",new_store_path,id:'create-store',class:'btn create-store me-md-2',role:'button'%>
     <%=link_to"UPLOAD CSV FILE",store_transactions_path,id:'csv-upload',class:'btn csv-upload',role:'button'%>
+   </div>
     <!-- <button type="button" class="btn create-store" ><%=link_to"Create new store",new_store_path,id:'create-store'%></button> -->
     <!-- <button type="button" class="btn csv-upload" ><%=link_to"UPLOAD CSV FILE",store_transactions_path,id:'csv-upload'%></button> -->
     <!-- <image src="/assets/search.png", heignt="30px", width="30px", alt="serach", class="index-search"> -->
     <form class="d-flex search">
-    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <input  onkeyup="searchStore()" id="searchbar" class="form-control me-2 index-search" type="search" placeholder="Search" aria-label="Search">
     </form>
+
    
     <div class="row justify-content-center ">
-    <div class="col-auto index-table">
+    <div class="col-auto">
     <div class="table-responsive">
-    <table class="table table-hover table-borderless" id="table_id"  summary="Store list">
+    <table class="table table-hover table-borderless table-responsive" id="table_id"  summary="Store list">
         <tr class="header">
-            <th scope="col">Store ID</th>
-            <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Store Name</th>
-            <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;City</th>
+            <th scope="col" class="col">Store ID</th>
+            <th scope="col" class="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Store Name</th>
+            <th scope="col" class="col">&nbsp;&nbsp;&nbsp;&nbsp;City</th>
         </tr>
         <% @stores.each do |store| %>
         <tr>
@@ -31,7 +35,7 @@
         </tr>
         <%end%>
     </table>
-</div>
-    </div>
+</div></div>
+
     </div>
 </div>

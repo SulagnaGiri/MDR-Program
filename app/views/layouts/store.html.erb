@@ -16,9 +16,9 @@
     <nav class="navbar store-navbar navbar-fixed-top">
       <div class="navbar-header pull-left"> <h5 class="navbar-brand nav-heading"><b>MDR REPORT</b></h5></div>
       <div class="navbar-header pull-right">
-       <div class="home"><a class="navbar-brand"  ><h5><%= link_to "Home",stores_path%></h5></a></div> 
-        
-       <div class="signout"><a class="navbar-brand " ><h5><%= link_to "Sign out",destroy_admin_user_session_path, :method => :delete %></h5></a></div> </div>
+       <div class="home "><%= link_to "Home",stores_path, class:"navbar-brand"%></div> 
+  
+               <div class="signout  "><%= link_to "Sign out",destroy_admin_user_session_path, :method => :delete, class:"navbar-brand" %></div> </div>
       
     </nav>
     

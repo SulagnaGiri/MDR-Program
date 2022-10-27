@@ -83,10 +83,10 @@ a:hover {
   {
     position:relative;
   }
-  .show_button
+  /* .show_button
   {
     position: relative;
-  }
+  } */
   #csv-upload,#create-store
   {
     color: #e9edf3;
@@ -134,10 +134,7 @@ a:hover {
     box-shadow: 0 0 5px 3px lightgrey;
     display: block;
   } */
-  .table-responsive
-  {
-   
-  }
+ 
   #index_table
   {
     width:1400px;
@@ -229,22 +226,20 @@ a:hover {
   }
   .home
   {
-    margin-left:-70%;
-    margin-top: -14%;
+    display:inline-block;
+    
     
     /* top:0; */
     
 
     
   }
-  .navbar-brand
-  {
-    margin-right: 4rem;
-  }
+  
   .signout
   {
-    margin-left:-17%;
-    margin-top: -60%;
+   
+    display:inline-block;
+   
   }
  .edit
  {
@@ -287,20 +282,23 @@ a:hover {
   }
   .edit
   {
-    margin-top: -12.5%;
-    margin-left: 55%;
-  }
- /* .dd-button
-  {
-     margin-top: 196px;
-    margin-left:-65%;
+    margin-left: 45%;
+    margin-top: -95px;
+    position: absolute;
+    display: flexbox;
     
-  }  */
+    
+  }
+
   .show-dropdown
   {
-    margin-top: -13%;
-    margin-bottom: 16%;
-    margin-left: -10%;
+    margin-top: -138px;
+    
+    margin-left: 75%;
+    position: absolute;
+    display: flexbox;
+   
+   
   }
   
   #searchbar
@@ -309,17 +307,36 @@ a:hover {
     
     
   }
-  
-
-  /* .home
+ .show_button
   {
-    margin-right:50%;
+    position: relative;
   }
-  .edit{
-    margin-left: 65%;
-  } */
+  .card
+  {
+    width:400px !important;
+    margin-left: 50px !important;
+  }
+  .daily_search
+  {
+    margin-left: 2%;
+    width:300px;
+   
+  }
+  .daily_report
+  {
+    margin-left: 65% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;
+    
+  }
+  .monthly_report
+  {
+    margin-left: 65% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;
+  }
 }
-@media only screen and (min-width : 768px)  and (max-width: 1241px) {
+@media only screen and (min-width : 767px)  and (max-width: 1241px) {
   
   .create-store
   {
@@ -337,14 +354,51 @@ a:hover {
     margin-left: -31%;
     
   }
-  /* .home
+  .show_button
   {
-    margin-right:70%;
+    position: relative;
   }
-  .reports
+  .edit
   {
-    margin-bottom: 10%;
-  } */
+    margin-left: 71%;
+    margin-top: -95px;
+    position: absolute;
+    display: flexbox;
+    
+    
+  }
+
+  .show-dropdown
+  {
+    margin-top: -139px;
+    
+    margin-left: 82%;
+    position: absolute;
+    display: flexbox;
+   
+   
+  }
+  .daily_search
+  {
+    margin-left: 2%;
+    width:300px;
+   
+  }
+  .daily_report
+  {
+    margin-left: 65% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;
+    
+  }
+  .monthly_report
+  {
+    margin-left: 65% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;
+  }
+
+ 
   }
   @media only screen and (min-width : 1241px)  and (max-width: 1763px) {
   
@@ -363,6 +417,49 @@ a:hover {
     width:100%;
     margin-left:-15%;
     
+  }
+  .show_button
+  {
+    position: relative;
+  }
+  .edit
+  {
+    margin-left: 71%;
+    margin-top: -95px;
+    position: absolute;
+    display: flexbox;
+    
+    
+  }
+
+  .show-dropdown
+  {
+    margin-top: -139px;
+    
+    margin-left: 82%;
+    position: absolute;
+    display: flexbox;
+   
+   
+  }
+  .daily_search
+  {
+    margin-left: 170px;
+    width:300px;
+   
+  }
+  .daily_report
+  {
+    margin-left: 80% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;
+    
+  }
+  .monthly_report
+  {
+    margin-left: 77% !important;
+    margin-bottom: 20px !important;
+    margin-top: -45px !important;;
   }
     }
      .modal {
@@ -668,8 +765,9 @@ h3{
 .filter
 {
   
-  margin-left: 33%;
+  
   box-shadow: 0 0 5px 3px lightgrey;
+  
   
 }
 
